@@ -16,6 +16,19 @@
     </head>
     <body>
     <h1>Open pot hole service requests</h1>
+    <div class="template potholes">
+        <h1 class="serviceType"></h1>
+        <p>
+            Service Request Number: <span class="number"></span><br>
+            Status: <span class="status"></span>
+        </p>
+        
+    </div>
+    <div id="results">
+        
+        
+        
+    </div>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
@@ -50,19 +63,24 @@
                     // loop through the records
                     
                 $.each(data, function(index, value){
-                   var html = "<div><h1>" + value.type_of_service_request + "</h1>" +
-                   "<p>Status: " + value.status + "</p>" +
-                   
-                   "</div>";
-                   
-                   $("body").append(html);
-                   
-                });
-                    
-                    
-                    
-
-                    
+                  
+                  clone = $(".template").clone();
+                        clone.removeClass("template");
+                        clone.find(".serviceType").text(value.type_of_service_request);
+                        clone.find(".number").text(value.service_request_number);
+                        clone.find(".status").text(value.status);
+                        
+                        $("#results").append(clone);
+                        
+                       var html = "<div><h1>" + value.type_of_service_request + "</h1>" +
+                                    "<p>" +
+                                    "Service request number: " + value.service_request_number +
+                                    "<br>Status: " + value.status +
+                                    "</p>" +
+                                    "</div>";
+                                    
+                        $("body").append(html);
+                    });
                 })
             
             
