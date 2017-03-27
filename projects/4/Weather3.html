@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <style>
+            body {
+                background-color:pink;
+            }
+            p, h1 {font-family: helvetica; color: red;}
+            p {font-size:1.5em;line-height:1.5em; margin-left: 24px; color: red;}
+            pre {font-size: 2em;}
+            div { border: 10px solid black; margin: 12px; border-radius: 15px; background-color: #ededed}
+        </style>
+    </head>
+    <body>
+    <h1>Beach Forecast</h1>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        /*
+            This script retrieves 311 pot hole service request data for 
+            from the 
+            City of Chicago Data Portal
+            
+            This script doesn't update the DOM.
+
+        */
+
+        // base URL to the food inspections data
+        var baseURL = 'https://data.cityofchicago.org/resource/77jv-5zb8.json';
+        
+        // optional filters we're appending - status
+        var filters = '';
+        
+        // full URL
+        var url = baseURL + filters;
+        
+        console.log (url);
+        
+        $(
+            // jQuery command to retrieve json data
+            
+            $.getJSON(url)
+                .done (function (data) {
+                    // TODO:  add script to add data to the DOM
+                    console.log(data);
+
+                    // loop through the records
+                    
+                $.each(data, function(index, value){
+                   var html = "<div>" + "<hr>" + "<h1>Station Name: " + value.station_name + "</h1>" +
+                   "<p>Interval Rain: " + value.interval_rain + "</p>" + 
+                   "<p>Maximum Wind Speed: " + value.maximum_wind_speed + "</p>" +
+                   
+                   "<hr>" + "</div>";
+                   
+                   $("body").append(html);
+                   
+                });
+                    
+                    
+                    
+
+                    
+                })
+            
+            
+        )
+        
+        
+    </script>
+    </body>
+</html>      
